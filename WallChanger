@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WallChanger : MonoBehaviour
+{
+    Vector3 stageDimensions;
+    public float startX = 2.8125f, startY = 5f;
+    public bool needChangeWidth = true, needChangeHeight = true; 
+    [SerializeField] private Transform wall;
+  
+    void Start()
+    {
+      stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width , Screen.height,0));
+      ChangeSize();  
+    }
+
+    public void ChangeSize()
+    {
+      float sizeRatioX = (stageDimensions.x) / (startX);
+      float sizeRatioY = (stageDimensions.y) / (startY);  
+      Vector3 newStageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width , Screen.height,0));
+      if(needChangeWidth == true)
+      {
+        wall.transform.localScale = new Vector3(wall.transform.localScale.x * sizeRatioX, wall.transform.localScale.y, 1f);  
+      }
+      if(needChangeHeight == true)
+      {
+        wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.transform.localScale.y * sizeRatioY, 1f);     
+      }
+      
+    }
+}
